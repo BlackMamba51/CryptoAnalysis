@@ -1,7 +1,8 @@
 from django.urls import path
 
-from . import views
+from .views import fetch_crypto_api, get_crypto_data
 
 urlpatterns = [
-    path("", views.get_crypto_data, name='ctypto_data'),
+    path("api/crypto/", fetch_crypto_api, name='crypto_api'),
+    path("", get_crypto_data, name='crypto_data'),
 ]

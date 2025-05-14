@@ -1,1 +1,51 @@
-<h1>{{data.coin}}</h1>
+<!-- {% for crypto in cryptos %}
+<tr>
+    <td>{{crypto.name}}</td>
+    <td>{{crypto.symbol}}</td>
+    <td>{{crypto.price_usd}}$</td>
+</tr>
+{% endfor %} -->
+<p>Таблица загружается</p>
+<table id="crypto-table">
+    <tr>
+        <th>Название</th>
+        <th>Символ</th>
+        <th>Цена</th>
+    </tr>
+</table>
+
+<script>
+
+    function fetchCryptoData() {
+        console.log("Запрос API отправлен:", new Date().toLocaleTimeString());
+        fetch('api/crypto/').then(response => response.json())
+        .then(data => {
+            console.log("Полученные данные:", data);  
+            let cryptoTable = document.getElementById("crypto-table");
+    
+            if (!cryptoTable) {
+                console.error("Ошибка: таблица не найдена!");
+                return;
+            }
+            cryptoTable.innerHTML = `<tr>
+                        <th>Название</th>
+                        <th>Символ</th>
+                        <th>Цена</th>
+                    </tr>`;
+            data.forEach(crypto => {
+                let row = `<tr>
+                        <td>${crypto.name}</td>
+                        <td>${crypto.symbol}</td>
+                        <td>${crypto.price_usd}</td>
+                    </tr>`;
+                cryptoTable.innerHTML += row
+            });
+        });
+    };
+    setInterval(fetchCryptoData, 90000);
+    window.onload = function () {
+    console.log("Страница загружена, запускаем API");
+    fetchCryptoData();
+};
+</script>
+

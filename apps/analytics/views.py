@@ -1,17 +1,19 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 import requests
 
+@api_view(['GET']) # Разрешаем только GET запросы
 def get_crypto_data(request):
-    url = ' https://api.coinlore.net/api/ticker/?id=90'
 
+    return render(request, 'analytics/index.html')
+
+def fetch_crypto_api(request):
+    url = 'https://api.coinlore.net/api/ticker/?id=90'
     response = requests.get(url)
-    data = response.json()
-    data = data[0]
-    data_of_coin = {
-        'coin': data['name'],
-        'symbol': data['symbol']
-    }
-    return render(request, 'analytics/index.html', {'data': data_of_coin})
-
+    if response.status_code != 200:
+        return JsonResponse({"error": "Ошибка при получении данных"}, safe=False)
+    return JsonResponse(response.json(), safe=False)
+    
+    
