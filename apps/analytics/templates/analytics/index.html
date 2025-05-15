@@ -1,42 +1,70 @@
-<!-- {% for crypto in cryptos %}
-<tr>
-    <td>{{crypto.name}}</td>
-    <td>{{crypto.symbol}}</td>
-    <td>{{crypto.price_usd}}$</td>
-</tr>
-{% endfor %} -->
-<p>Таблица загружается</p>
 <table id="crypto-table">
     <tr>
+        <th>#</th>
         <th>Название</th>
         <th>Символ</th>
         <th>Цена</th>
+        <th>%1ч</th>
+        <th>%24ч</th>
+        <th>%7дн</th>
+        <th>Рын. кап.</th>
+        <th>Объем (24ч)</th>
+        <th>Циркулир. предложение</th>
     </tr>
 </table>
 
 <script>
+    function formatNumber(number) {
+        const digits = Math.floor(Math.log10(number)) + 1;
+        let label, divisor ;
+        if (digits >= 7 && digits < 10) {
+            label = 'M';
+            divisor = 1e6;
+        } else if (digits >= 10 && digits < 13) {
+            label = 'B';
+            divisor = 1e9;
+        } else if (digits >= 13) {
+            label = 'T';
+            divisor = 1e12;
+        } else {
+            label = 'K';
+            divisor = 1e3;
+        }
+        return `${(number / divisor).toFixed(2)} ${label}`;
+    };
 
     function fetchCryptoData() {
         console.log("Запрос API отправлен:", new Date().toLocaleTimeString());
         fetch('api/crypto/').then(response => response.json())
         .then(data => {
-            console.log("Полученные данные:", data);  
             let cryptoTable = document.getElementById("crypto-table");
-    
-            if (!cryptoTable) {
-                console.error("Ошибка: таблица не найдена!");
-                return;
-            }
             cryptoTable.innerHTML = `<tr>
+                        <th>#</th>
                         <th>Название</th>
                         <th>Символ</th>
                         <th>Цена</th>
+                        <th>%1ч</th>
+                        <th>%24ч</th>
+                        <th>%7дн</th>
+                        <th>Рын. кап.</th>
+                        <th>Объем (24ч)</th>
+                        <th>Циркулир. предложение</th>
                     </tr>`;
-            data.forEach(crypto => {
+            data.data.forEach((crypto, index) => {
+                const coinCapit = Math.round(Number(crypto.market_cap_usd))
+                const formattedCoinCapit = coinCapit.toLocaleString('en-US') // Разделяем число на разряды
+                const formattedVolume = Math.round(crypto.volume24).toLocaleString('en-US')
                 let row = `<tr>
+                        <td>${index + 1}</td>
                         <td>${crypto.name}</td>
                         <td>${crypto.symbol}</td>
-                        <td>${crypto.price_usd}</td>
+                        <td>${crypto.price_usd}$</td>
+                        <td>${crypto.percent_change_1h}%</td>
+                        <td>${crypto.percent_change_24h}%</td>
+                        <td>${crypto.percent_change_7d}%</td>
+                        <td>$${formattedCoinCapit}</td>
+                        <td>$${formattedVolume}</td>
+                        <td>${formatNumber(crypto.csupply)}</td>
                     </tr>`;
                 cryptoTable.innerHTML += row
             });
@@ -44,8 +72,8 @@
     };
     setInterval(fetchCryptoData, 90000);
     window.onload = function () {
-    console.log("Страница загружена, запускаем API");
-    fetchCryptoData();
-};
+        console.log("Страница загружена, запускаем API");
+        fetchCryptoData();
+    };
 </script>
 
