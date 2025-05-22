@@ -10,8 +10,12 @@
         <th>Рын. кап.</th>
         <th>Объем (24ч)</th>
         <th>Циркулир. предложение</th>
+        <th>Последние 7 дней
+            <div id='chart-div'></div>
+        </th>
     </tr>
 </table>
+
 
 <script>
     function formatNumber(number) {
@@ -37,6 +41,7 @@
         console.log("Запрос API отправлен:", new Date().toLocaleTimeString());
         fetch('api/crypto/').then(response => response.json())
         .then(data => {
+            console.log(data);
             let cryptoTable = document.getElementById("crypto-table");
             cryptoTable.innerHTML = `<tr>
                         <th>#</th>
@@ -49,31 +54,52 @@
                         <th>Рын. кап.</th>
                         <th>Объем (24ч)</th>
                         <th>Циркулир. предложение</th>
+                        <th>Последние 7 дней
+                            <div id='chart-div'></div>
+                        </th>
                     </tr>`;
-            data.data.forEach((crypto, index) => {
-                const coinCapit = Math.round(Number(crypto.market_cap_usd))
+            data.forEach((crypto, index) => {
+                const coinCapit = Math.round((crypto.quote.USD.market_cap))
                 const formattedCoinCapit = coinCapit.toLocaleString('en-US') // Разделяем число на разряды
-                const formattedVolume = Math.round(crypto.volume24).toLocaleString('en-US')
+                const formattedVolume = Math.round(crypto.quote.USD.volume_24h).toLocaleString('en-US')
                 let row = `<tr>
                         <td>${index + 1}</td>
                         <td>${crypto.name}</td>
                         <td>${crypto.symbol}</td>
-                        <td>${crypto.price_usd}$</td>
-                        <td>${crypto.percent_change_1h}%</td>
-                        <td>${crypto.percent_change_24h}%</td>
-                        <td>${crypto.percent_change_7d}%</td>
+                        <td>${(crypto.quote.USD.price).toFixed(2)}$</td>
+                        <td>${(crypto.quote.USD.percent_change_1h).toFixed(2)}%</td>
+                        <td>${(crypto.quote.USD.percent_change_24h).toFixed(2)}%</td>
+                        <td>${(crypto.quote.USD.percent_change_7d.toFixed(2))}%</td>
                         <td>$${formattedCoinCapit}</td>
                         <td>$${formattedVolume}</td>
-                        <td>${formatNumber(crypto.csupply)}</td>
+                        <td>${formatNumber(crypto.total_supply)}</td>
+                        <td>Последние 7 дней
+                            <div id='chart-div'></div>
+                        </td>
                     </tr>`;
                 cryptoTable.innerHTML += row
             });
+            
         });
     };
-    setInterval(fetchCryptoData, 90000);
+    setInterval(fetchCryptoData, 60000);
+    
+
+
+    // function fetchBinanceApi() {
+    //     fetch('api/binance/').then(response => response.json()).then(data => {
+    //         Plotly.newPlot('chart-div', [{
+    //             x: data.timestamps,
+    //             y: data.prices,
+    //             mode: 'lines'
+    //         }]);
+    //     });
+    // };
+
     window.onload = function () {
         console.log("Страница загружена, запускаем API");
         fetchCryptoData();
+        // fetchBinanceApi();
     };
 </script>
 
