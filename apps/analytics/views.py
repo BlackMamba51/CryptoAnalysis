@@ -4,11 +4,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import requests, os
 
-from .utils import get_7d_prices
+from .utils import get_general_info
 
 @api_view(['GET']) # Разрешаем только GET запросы
 def get_crypto_data(request):
-    return render(request, 'analytics/index.html')
+    data = get_general_info()
+    return render(request, 'analytics/index.html', {'data': data})
 
 
 
@@ -25,7 +26,10 @@ def fetch_crypto_api(request):
         return JsonResponse({"error": "Ошибка при получении данных"}, safe=False)
     return JsonResponse(data['data'], safe=False)
     
-def crypto_chart(request):
-    data = get_7d_prices()
+# def crypto_chart(request):
+#     data = get_7d_prices()
    
-    return JsonResponse(data, safe=False)
+#     return JsonResponse(data, safe=False)
+# def render_general_info(request):
+#     data = get_general_info()
+#     return render(request, 'analytics/index.html', {'data': data}) 

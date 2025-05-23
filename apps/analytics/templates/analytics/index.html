@@ -1,3 +1,19 @@
+{% load custom_filters %}
+<div class="secondary-header">
+    <div class="general-info" style="display: flex; ">
+        <div>Криптовалюты: {{ data.data.total_crypto_dex_currencies|formatNumbers}}</div>
+        <div>Биржи: {{ data.data.active_exchanges }}</div>
+        <div>Рын. кап.: ${{ data.data.quote.USD.total_market_cap|formatNumbers }}</div>
+        <div>Объем за 24ч: {{ data.data.quote.USD.total_volume_24h|formatNumbers }}</div>
+        <div>Доминирование: BTC: {{ data.data.btc_dominance|floatformat:1 }}% ETH: {{ data.data.eth_dominance|floatformat:1 }}%</div>
+        <div>Fear&Greed:</div>
+    </div>
+    <div class="btn-content-add">
+        
+    </div>
+</div>
+    
+    
 <table id="crypto-table">
     <tr>
         <th>#</th>
@@ -36,6 +52,8 @@
         }
         return `${(number / divisor).toFixed(2)} ${label}`;
     };
+
+
 
     function fetchCryptoData() {
         console.log("Запрос API отправлен:", new Date().toLocaleTimeString());
