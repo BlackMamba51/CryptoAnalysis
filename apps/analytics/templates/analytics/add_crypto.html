@@ -1,0 +1,10 @@
+
+
+<form method="post" action="add_coin/">
+    {% csrf_token %}
+    <input type="text" name="coin-name" placeholder="Название монеты">
+    <input type="text" name="coin-symbol" placeholder="Символ монеты">
+    <input type="number" name="coin-price" placeholder="Стоимость монеты">
+    <input type="number" name="coin-count" placeholder="Количество монет">
+    <input type="submit" value="Send">
+</form>

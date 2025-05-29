@@ -1,6 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from rest_framework.response import Response
+from .models import CryptoCoin
 from rest_framework.decorators import api_view
 import requests, os
 
@@ -33,3 +34,14 @@ def fetch_crypto_api(request):
 # def render_general_info(request):
 #     data = get_general_info()
 #     return render(request, 'analytics/index.html', {'data': data}) 
+
+def add_crypto(request):
+    return render(request, 'analytics/add_crypto.html')
+
+def add_coin(request):
+    CryptoCoin.objects.create(coin_name=request.POST.get('coin-name'), coin_symbol=request.POST.get('coin-symbol'), coin_price=request.POST.get('coin-price'), coin_count=request.POST.get('coin-count'))
+    coin_name = request.POST.get('coin-name')
+    coin_symbol = request.POST.get('coin-symbol')
+    coin_price = request.POST.get('coin-price')
+    coin_count = request.POST.get('coin-count')
+    return HttpResponse(f'<h2>{coin_name}({coin_symbol})</h2>')
