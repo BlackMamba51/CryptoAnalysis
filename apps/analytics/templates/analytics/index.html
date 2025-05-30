@@ -13,6 +13,27 @@
     </div>
 </div>
     
+
+<div class="added-coins">
+    <table id="new_coins">
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>Символ</th>
+            <th>Цена</th>
+            <th>Циркулир. предложение</th>
+        </tr>
+        {% for el in db_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ el.coin_name }}</td>
+                <td>{{ el.coin_symbol }}</td>
+                <td>{{ el.coin_price }}</td>
+                <td>{{ el.coin_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
     
 <table id="crypto-table">
     <tr>
