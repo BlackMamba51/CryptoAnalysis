@@ -1,57 +1,82 @@
-{% load custom_filters %}
-<div class="secondary-header">
-    <div class="general-info" style="display: flex; ">
-        <div>Криптовалюты: {{ data.data.total_crypto_dex_currencies|formatNumbers}}</div>
-        <div>Биржи: {{ data.data.active_exchanges }}</div>
-        <div>Рын. кап.: ${{ data.data.quote.USD.total_market_cap|formatNumbers }}</div>
-        <div>Объем за 24ч: {{ data.data.quote.USD.total_volume_24h|formatNumbers }}</div>
-        <div>Доминирование: BTC: {{ data.data.btc_dominance|floatformat:1 }}% ETH: {{ data.data.eth_dominance|floatformat:1 }}%</div>
-        <div>Fear&Greed:</div>
-    </div>
-    <div class="btn-content-add">
-        <a class="add-coin" href="{% url 'add_crypto' %}">Разместить криптовалюту</a>
-    </div>
-</div>
-    
 
-<div class="added-coins">
-    <table id="new_coins">
-        <tr>
-            <th>#</th>
-            <th>Название</th>
-            <th>Символ</th>
-            <th>Цена</th>
-            <th>Циркулир. предложение</th>
-        </tr>
-        {% for el in db_data %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ el.coin_name }}</td>
-                <td>{{ el.coin_symbol }}</td>
-                <td>{{ el.coin_price }}</td>
-                <td>{{ el.coin_count }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-</div>
-    
-<table id="crypto-table">
-    <tr>
-        <th>#</th>
-        <th>Название</th>
-        <th>Символ</th>
-        <th>Цена</th>
-        <th>%1ч</th>
-        <th>%24ч</th>
-        <th>%7дн</th>
-        <th>Рын. кап.</th>
-        <th>Объем (24ч)</th>
-        <th>Циркулир. предложение</th>
-        <th>Последние 7 дней
-            <div id='chart-div'></div>
-        </th>
-    </tr>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Crypto</title>
+</head>
+<body class="page">
+    <div class="wrapper">
+        <div class="content">
+            {% load custom_filters %}
+            <header class="header">
+                <div class="container">
+                    <div class="header__secondary">
+                        <div class="header__general-info" style="display: flex; ">
+                            <div class="general-info__item">Криптовалюты: {{ data.data.total_crypto_dex_currencies|formatNumbers}}</div>
+                            <div class="general-info__item">Биржи: {{ data.data.active_exchanges }}</div>
+                            <div class="general-info__item">Рын. кап.: ${{ data.data.quote.USD.total_market_cap|formatNumbers }}</div>
+                            <div class="general-info__item">Объем за 24ч: {{ data.data.quote.USD.total_volume_24h|formatNumbers }}</div>
+                            <div class="general-info__item">Доминирование: BTC: {{ data.data.btc_dominance|floatformat:1 }}% ETH: {{ data.data.eth_dominance|floatformat:1 }}%</div>
+                            <div class="general-info__item">Fear&Greed:</div>
+                        </div>
+                        <div class="header__btn-content">
+                            <a class="btn-content__add-coin" href="{% url 'add_crypto' %}">Разместить криптовалюту</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="added-coins">
+                <div class="container">
+                    <div class="added-coins__table">
+                        <table id="new_coins">
+                            <caption>Последние добавленные монеты</caption>
+                            <tr class="added-coins__row">
+                                <th>#</th>
+                                <th>Название</th>
+                                <th>Символ</th>
+                                <th>Цена</th>
+                                <th>Циркулир. предложение</th>
+                            </tr>
+                            {% for el in db_data %}
+                                <tr class="added-coins__row">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ el.coin_name }}</td>
+                                    <td>{{ el.coin_symbol }}</td>
+                                    <td>{{ el.coin_price }}</td>
+                                    <td>{{ el.coin_count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </section> 
+            <section class="crypto">
+                <div class="container">
+                    <table id="crypto__table">
+                        <tr class="crypto__row sticky">
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Символ</th>
+                            <th>Цена</th>
+                            <th>%1ч</th>
+                            <th>%24ч</th>
+                            <th>%7дн</th>
+                            <th>Рын. кап.</th>
+                            <th>Объем (24ч)</th>
+                            <th>Циркулир. предложение</th>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div> 
+</body>
+</html>
+
 
 
 <script>
@@ -81,8 +106,8 @@
         fetch('api/crypto/').then(response => response.json())
         .then(data => {
             console.log(data);
-            let cryptoTable = document.getElementById("crypto-table");
-            cryptoTable.innerHTML = `<tr>
+            let cryptoTable = document.getElementById("crypto__table");
+            cryptoTable.innerHTML = `<tr class="crypto__row sticky">
                         <th>#</th>
                         <th>Название</th>
                         <th>Символ</th>
@@ -93,9 +118,6 @@
                         <th>Рын. кап.</th>
                         <th>Объем (24ч)</th>
                         <th>Циркулир. предложение</th>
-                        <th>Последние 7 дней
-                            <div id='chart-div'></div>
-                        </th>
                     </tr>`;
             data.forEach((crypto, index) => {
                 const coinCapit = Math.round((crypto.quote.USD.market_cap))
@@ -112,9 +134,6 @@
                         <td>$${formattedCoinCapit}</td>
                         <td>$${formattedVolume}</td>
                         <td>${formatNumber(crypto.total_supply)}</td>
-                        <td>Последние 7 дней
-                            <div id='chart-div'></div>
-                        </td>
                     </tr>`;
                 cryptoTable.innerHTML += row
             });

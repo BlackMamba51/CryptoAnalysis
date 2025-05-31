@@ -1,0 +1,157 @@
+/*Обнуление*/
+*{padding: 0;margin: 0;border: 0;}
+*,*:before,*:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+input,button,textarea{font-family:inherit;}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner{padding:0;border:0;}
+a,a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
+/*--------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.header {
+    background-color: #333;
+    color: white;
+}
+.header__secondary {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.header__general-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.general-info__item {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #222;
+}
+
+.header__btn-content {
+    margin-top: 10px;
+}
+
+.btn-content__add-coin {
+    padding: 8px 16px;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.btn-content__add-coin:hover {
+    box-shadow: 2px 2px 5px #007bff;
+    transition: ease all 0.3s;
+}
+
+#new_coins caption {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
+    padding: 10px 0;
+    text-align: center;
+    background-color: #ecf0f1;
+    border-bottom: 2px solid #bdc3c7;
+    text-transform: uppercase;
+}
+
+.added-coins {
+    /* Основной блок страницы */
+    font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
+    padding: 25px 0;
+}
+
+.added-coins .container {
+    max-width: 1200px;
+}
+
+.added-coins__table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стилизация таблицы */
+#new_coins {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+#new_coins th,
+#new_coins td {
+    padding: 12px 15px;
+    border: 1px solid #dcdcdc; /* аккуратный бордер */
+    text-align: left;
+}
+
+/* Стилизация заголовков таблицы */
+#new_coins th {
+    background-color: #f4f4f4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+/* Эффект при наведении на строку таблицы */
+#new_coins tr:hover {
+    background-color: #eef6ff;
+}
+
+/* Секция crypto */
+.crypto {
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+/* Стили для таблицы */
+#crypto__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+/* Общие стили для ячеек таблицы */
+#crypto__table th,
+#crypto__table td {
+    padding: 12px 15px;
+    border: 1px solid #dcdcdc; /* аккуратная рамка */
+    cursor: pointer;
+}
+
+/* Заголовки таблицы */
+#crypto__table th {
+    background-color: #f4f4f4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+/* Hover-эффект для строк таблицы */
+#crypto__table tr:hover {
+    background-color: #eef6ff;
+    transition: ease all 0.3s;
+}
