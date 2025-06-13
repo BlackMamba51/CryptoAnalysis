@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .models import CryptoCoin
 from rest_framework.decorators import api_view
 import requests
-from .utils import get_general_info
+from .utils import get_general_info, get_coins_details
 
 
 # -- Для шаблона index.html --
@@ -54,3 +54,12 @@ def add_coin(request):
     return HttpResponse(f'<h2>{coin_name}({coin_symbol})</h2>')
 
 # -- Для шаблона add_crypto.html -- 
+
+
+# -- Для шаблона coin_detail.html --
+
+def coin_detail(request, coin_id):
+    coin_details_data, metadata = get_coins_details(coin_id)
+    return render(request, 'analytics/coin_detail.html', {'data': coin_details_data['data'][f'{coin_id}'], 'metadata': metadata['data'][f'{coin_id}']})
+
+# -- Для шаблона coin_detail.html --

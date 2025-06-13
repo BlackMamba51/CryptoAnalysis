@@ -1,4 +1,5 @@
 from django import template
+from urllib.parse import urlparse
 import math 
 
 register = template.Library()
@@ -23,3 +24,15 @@ def formatNumbers(value):
     number = value / divisor
     return f'{math.floor(number * 100) / 100}{label}'
     
+@register.filter
+def rounding(value):
+    try:
+        return round(value, 2)
+    except (ValueError, TypeError):
+        return value
+
+@register.filter
+def link_reduction(value):
+    parsed_url = urlparse(value)
+    domain = parsed_url.netloc
+    return domain

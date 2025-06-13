@@ -21,7 +21,10 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
     max-width: 1600px;
     margin: 0 auto;
 }
-
+.page {
+    background-color: #f5f5f5;
+}
+/* Стили для index.html */
 .header {
     background-color: #333;
     color: white;
@@ -155,3 +158,173 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
     background-color: #eef6ff;
     transition: ease all 0.3s;
 }
+
+/* Стили для index.html */
+
+
+
+
+/* Стили для coin_detail.html */
+
+
+
+
+
+/* Стилизация хедера */
+.header {
+  background-color: #333;
+  padding: 15px 0;
+  color: #fff;
+}
+.header__container {
+  width: 100%;
+}
+.header__title {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* Страница детализации монеты */
+.coin-detail {
+  background-color: #fff;
+  margin-top: 30px;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Информация о монете */
+.coin-detail__info {
+  margin-bottom: 30px;
+}
+.coin-detail__name {
+  font-size: 22px;
+  color: #2c3e50;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.coin-detail__icon {
+  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+}
+.coin-detail__description {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Стилизация списка статистики */
+.stats {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.stats__item {
+  background-color: #f4f4f4;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Секция графика */
+.coin-detail__chart {
+  margin-top: 30px;
+}
+.coin-detail__chart-title {
+  font-size: 22px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+.coin-detail__chart-canvas {
+  width: 100%;
+  height: 250px;
+  background-color: #ecf0f1;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+}
+
+/* Стилизация футера */
+.footer {
+  margin-top: 40px;
+  padding: 15px 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+}
+.footer__text {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+
+/* Общий контейнер блока */
+.coin-detail__links {
+  max-width: 30%;
+  background-color: #f9f9f9;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px; /* Более закруглённые углы */
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Контейнер каждой группы ссылок */
+.coin-detail__links-group {
+  margin-bottom: 20px;
+}
+
+/* Заголовок группы */
+.coin-detail__links-group-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Список ссылок. Используем grid для адаптивной раскладки */
+.coin-detail__links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+/* Элемент списка */
+.coin-detail__link-item {
+  background-color: #eef6ff;
+  border: 1px solid #cce0ff;
+  border-radius: 12px; /* Увеличенная закруглённость */
+  padding: 8px;
+  text-align: center;
+  font-size: 14px; /* Меньший размер шрифта */
+}
+.coin-detail__link-item:hover {
+  transition: ease all 0.3s;
+}
+/* Стилизация ссылки внутри элемента */
+.coin-detail__link-item a {
+  display: block;
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+/* Эффект при наведении на элемент */
+.coin-detail__link-item:hover {
+  background-color: #d0e8ff;
+}
+
+/* Стили для coin_detail.html */

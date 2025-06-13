@@ -123,18 +123,18 @@
                 const coinCapit = Math.round((crypto.quote.USD.market_cap))
                 const formattedCoinCapit = coinCapit.toLocaleString('en-US') // Разделяем число на разряды
                 const formattedVolume = Math.round(crypto.quote.USD.volume_24h).toLocaleString('en-US')
-                let row = `<tr>
-                        <td>${index + 1}</td>
-                        <td>${crypto.name}</td>
-                        <td>${crypto.symbol}</td>
-                        <td>${(crypto.quote.USD.price).toFixed(2)}$</td>
-                        <td>${(crypto.quote.USD.percent_change_1h).toFixed(2)}%</td>
-                        <td>${(crypto.quote.USD.percent_change_24h).toFixed(2)}%</td>
-                        <td>${(crypto.quote.USD.percent_change_7d.toFixed(2))}%</td>
-                        <td>$${formattedCoinCapit}</td>
-                        <td>$${formattedVolume}</td>
-                        <td>${formatNumber(crypto.total_supply)}</td>
-                    </tr>`;
+                let row = `<tr onclick="window.location.href='coin_detail/${crypto.id}'">
+                                <td>${index + 1}</td>
+                                <td>${crypto.name}</td>
+                                <td>${crypto.symbol}</td>
+                                <td>${(crypto.quote.USD.price).toFixed(2)}$</td>
+                                <td>${(crypto.quote.USD.percent_change_1h).toFixed(2)}%</td>
+                                <td>${(crypto.quote.USD.percent_change_24h).toFixed(2)}%</td>
+                                <td>${(crypto.quote.USD.percent_change_7d.toFixed(2))}%</td>
+                                <td>$${formattedCoinCapit}</td>
+                                <td>$${formattedVolume}</td>
+                                <td>${formatNumber(crypto.total_supply)}</td>
+                            </tr>`;
                 cryptoTable.innerHTML += row
             });
             

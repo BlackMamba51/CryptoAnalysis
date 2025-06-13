@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>{{ data.name }} – Подробности</title>
+</head>
+<body class="page">
+
+  <!-- Хедер -->
+  <header class="header">
+    <div class="header__container container">
+      <h1 class="header__title">Анализ криптовалюты</h1>
+    </div>
+  </header>
+  
+  <!-- Основной контент -->
+  <main class="coin-detail">
+    {% load custom_filters %}
+    <div class="container">
+      <!-- Информация о монете -->
+      <section class="coin-detail__info">
+        <h2 class="coin-detail__name">
+          <img src="{{ metadata.logo }}" alt="{{ data.symbol }} icon" class="coin-detail__icon">
+          {{ data.name }} ({{ data.symbol }})
+        </h2>
+        <p class="coin-detail__description">
+          {{ metadata.description }}
+        </p>
+        <ul class="coin-detail__stats stats">
+          <li class="stats__item">Цена: {{ data.quote.USD.price|rounding }} $</li>
+          <li class="stats__item">Рыночная капитализация: {{ data.quote.USD.market_cap|formatNumbers }} $</li>
+          <li class="stats__item">Объем за 24ч: {{ data.quote.USD.volume_24h|formatNumbers }} $</li>
+          <li class="stats__item">Максимальное предложение: {{ data.max_supply|formatNumbers }} {{data.symbol}}</li>
+          <li class="stats__item">Циркулирующее предложение: {{ data.total_supply|formatNumbers }} {{data.symbol}}</li>
+        </ul>
+      </section>
+
+      <!-- Блок полезных ссылок -->
+      <section class="coin-detail__links">
+        <!-- Группа: Веб-сайты -->
+        <div class="coin-detail__links-group">
+          <h3 class="coin-detail__links-group-title">Веб-сайты</h3>
+          <ul class="coin-detail__links-list">
+            {% if metadata.urls.website %}
+              {% for link in metadata.urls.website %}
+                <li class="coin-detail__link-item">
+                  <a href="{{ link }}" target="_blank" rel="noopener noreferrer">Website</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+            {% if metadata.urls.technical_doc %}
+              {% for link in metadata.urls.technical_doc %}
+                <li class="coin-detail__link-item">
+                  <a href="{{ link }}" target="_blank" rel="noopener noreferrer">Technical doc</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+
+        <!-- Группа: Соц сети -->
+        <div class="coin-detail__links-group">
+          <h3 class="coin-detail__links-group-title">Соц сети</h3>
+          <ul class="coin-detail__links-list">
+            {% if metadata.urls.reddit %}
+              {% for link in metadata.urls.reddit %}
+                <li class="coin-detail__link-item">
+                  <a href="{{ link }}" target="_blank" rel="noopener noreferrer">Reddit</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+
+        <!-- Группа: Исходный код -->
+        <div class="coin-detail__links-group">
+          <h3 class="coin-detail__links-group-title">Исходный код</h3>
+          <ul class="coin-detail__links-list">
+            {% if metadata.urls.source_code %}
+              {% for link in metadata.urls.source_code %}
+                <li class="coin-detail__link-item">
+                  <a href="{{ link }}" target="_blank" rel="noopener noreferrer">Source code</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+        <!-- Группа: Проводники -->
+        <div class="coin-detail__links-group">
+          <h3 class="coin-detail__links-group-title">Проводники</h3>
+          <ul class="coin-detail__links-list">
+            {% if metadata.urls.explorer %}
+              {% for link in metadata.urls.explorer %}
+                <li class="coin-detail__link-item">
+                  <a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{link|link_reduction}}</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">&copy; {{ current_year }} Crypto Analysis Project</p>
+    </div>
+  </footer>
+
+</body>
+</html>
